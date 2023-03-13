@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "commentor-backend"
+version = "0.1.0"
+description = "Python Flask backend for Commentor widget"
+authors = ["Nitin Sharma <48169425+nitinsharmacs@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "commentor_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+autopep8 = "^2.0.2"
+pymongo = "^4.3.3"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
