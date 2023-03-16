@@ -1,5 +1,24 @@
 ## Endpoints
 
+GET /health
+
+```json
+{
+  "method": "GET",
+  "path": "/health",
+  "description": "Health of the server",
+  "response": {
+    "success": {
+      "message": "Server is healthy"
+    },
+    "error": {
+      "error": true,
+      "message": "Server is not healthy"
+    }
+  }
+}
+```
+
 GET /comments
 
 ```json
