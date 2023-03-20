@@ -1,2 +1,5 @@
 run-test:
-	PYTHONPATH=. pytest -v
+	PYTHONPATH=. pytest -v $(args)
+
+print:
+	echo $(args)

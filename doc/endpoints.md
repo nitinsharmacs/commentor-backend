@@ -53,7 +53,8 @@ POST /add-comment
   "response": {
     "success": {
       "topicId": "topic-id",
-      "commentId": "commentId"
+      "commentId": "commentId",
+      "total_comments": 232
     },
     "error": {
       "error": true,
