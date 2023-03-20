@@ -9,3 +9,6 @@ class Comment:
         self.avatar = avatar
         self.likes = 0
         self.timestamp = datetime.now()
+
+    def serialize(self):
+        return self.__dict__

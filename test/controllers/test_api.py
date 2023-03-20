@@ -1,3 +1,4 @@
+from datetime import datetime
 import pytest
 from src.app import create_app
 
@@ -30,27 +31,35 @@ def test_should_add_comment_to_topic(app):
     assert response.json == expected_response
 
 
-# @pytest.mark.only
-# def test_should_response_comments_of_given_topic(app):
-#     "It should response comments of given topic"
+@pytest.mark.only
+def test_should_response_comments_of_given_topic(app):
+    "It should response comments of given topic"
 
-#     client = app.test_client()
+    client = app.test_client()
 
-#     comment = {
-#         'comment': 'This is a very informative blog. I would suggest ...',
-#         'topic-id': 'getting-started-with-docker'
-#     }
+    comment = {
+        'comment': 'This is a very informative blog. I would suggest ...',
+        'topic-id': 'getting-started-with-docker'
+    }
 
-#     client.post('/api/add-comment', json=comment)
+    client.post('/api/add-comment', json=comment)
 
-#     topic_id = 'getting-started-with-docker'
+    topic_id = 'getting-started-with-docker'
 
-#     expected_comments = [
-#         {
-#             'comment': 'This is a very informative blog. I would suggest ...',
-#             'topic-id': 'getting-started-with-docker'
-#         }
-#     ]
+    expected_comments = {
+        'topic-id': topic_id,
+        'comments': [
+            {
+                'message': 'This is a very informative blog. I would suggest ...',
+                'topic-id': 'getting-started-with-docker',
+                'id': '1',
+                'avatar': 'some_url',
+                'likes': 0,
+                'username': 'anonymous',
+            }
+        ]
+    }
 
-#     response = client.get('/api/comments/'+topic_id)
-#     assert response.json == expected_comments
+    response = client.get('/api/comments/'+topic_id).json
+    assert response['topic-id'] == topic_id
+    assert len(response['comments']) == 1

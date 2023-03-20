@@ -28,3 +28,12 @@ def add_comment():
     return jsonify({"topic-id": topic_id,
                     "comment-id": comment_id,
                     "total-comments": total_comments})
+
+
+@api_bp.get('/comments/<topic_id>')
+def get_comments(topic_id: str):
+    """Gets all comments from the given topic id"""
+
+    topic_comments = comments.getAll(topic_id)
+
+    return jsonify({'topic-id': topic_id, 'comments': topic_comments})

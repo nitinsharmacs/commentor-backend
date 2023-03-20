@@ -21,7 +21,7 @@ class Comments:
         """Gives all the comments of topic id"""
 
         if self.comments.has(topic_id):
-            return self.comments[topic_id]
+            return [comment.serialize() for comment in self.comments[topic_id]]
 
         return list()
 
