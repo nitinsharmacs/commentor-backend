@@ -1,23 +1,27 @@
 from datetime import datetime
 import pytest
 from src.app import create_app
+from src.controllers.api import comments
+from src.models.Map import Map
 
 
 @pytest.fixture
 def app():
-    return create_app()
+    yield create_app().test_client()
+    comments.clear()
 
 
 def test_health(app):
-    response = app.test_client().get('/api/health')
+    response = app.get('/api/health')
     assert response.json['message'] == "Server is healthy"
 
 
+@pytest.mark.only
 def test_should_add_comment_to_topic(app):
     "It should add comment to given topic id"
 
     body = {
-        'comment': 'This is a very informative blog. I would suggest ...',
+        'comment': 'It is a cool ...',
         'topic-id': 'getting-started-with-docker'
     }
 
@@ -27,7 +31,7 @@ def test_should_add_comment_to_topic(app):
         "total-comments": 1
     }
 
-    response = app.test_client().post('/api/add-comment', json=body)
+    response = app.post('/api/add-comment', json=body)
     assert response.json == expected_response
 
 
@@ -35,7 +39,7 @@ def test_should_add_comment_to_topic(app):
 def test_should_response_comments_of_given_topic(app):
     "It should response comments of given topic"
 
-    client = app.test_client()
+    client = app
 
     comment = {
         'comment': 'This is a very informative blog. I would suggest ...',
