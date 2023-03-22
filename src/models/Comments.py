@@ -4,6 +4,8 @@ from src.models.Comment import Comment
 
 
 class Comments:
+    """Stores and Manages all comments per topic"""
+
     def __init__(self):
         self.comments = Map()
 
@@ -17,7 +19,7 @@ class Comments:
 
         return len(self.comments[topic_id])
 
-    def getAll(self, topic_id: str) -> list:
+    def get_all(self, topic_id: str) -> list:
         """Gives all the comments of topic id"""
 
         if self.comments.has(topic_id):
@@ -31,4 +33,5 @@ class Comments:
         return self.comments.has(topic_id)
 
     def clear(self):
+        """Cleares the comments of all topics"""
         self.comments = Map()

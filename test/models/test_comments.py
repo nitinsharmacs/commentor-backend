@@ -113,7 +113,7 @@ def test_should_retrieve_topic_id_comments():
     comments.add(comment1, topic_id)
     comments.add(comment2, topic_id)
 
-    actual_comments = comments.getAll(topic_id)
+    actual_comments = comments.get_all(topic_id)
 
     assert actual_comments == expected_comments
 
@@ -127,6 +127,6 @@ def test_should_retrieve_empty_comments_of_topic_id():
 
     expected_comments = []
 
-    actual_comments = comments.getAll(topic_id)
+    actual_comments = comments.get_all(topic_id)
 
     assert actual_comments == expected_comments

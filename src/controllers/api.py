@@ -34,5 +34,5 @@ def add_comment():
 def get_comments(topic_id: str):
     """Gets all comments from the given topic id"""
 
-    topic_comments = comments.getAll(topic_id)
+    topic_comments = comments.get_all(topic_id)
     return jsonify({'topic-id': topic_id, 'comments': topic_comments})
