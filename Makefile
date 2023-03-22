@@ -3,3 +3,6 @@ run-test:
 
 print:
 	echo $(args)
+
+start:
+	python3 main.py
