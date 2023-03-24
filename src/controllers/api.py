@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask_cors import cross_origin
 
 from src.models.Comment import Comment
 from src.models.Comments import Comments
@@ -14,7 +15,8 @@ def health():
     return jsonify({"message": "Server is healthy"})
 
 
-@api_bp.route('/add-comment', methods=['POST'])
+@api_bp.post('/add-comment', strict_slashes=False)
+# @cross_origin()
 def add_comment():
     """Add comment into given topic id"""
 
@@ -27,7 +29,7 @@ def add_comment():
 
     return jsonify({"topic-id": topic_id,
                     "comment-id": comment_id,
-                    "total-comments": total_comments})
+                    "total-comments": total_comments}), 201
 
 
 @api_bp.get('/comments/<topic_id>')
@@ -35,4 +37,5 @@ def get_comments(topic_id: str):
     """Gets all comments from the given topic id"""
 
     topic_comments = comments.get_all(topic_id)
+
     return jsonify({'topic-id': topic_id, 'comments': topic_comments})

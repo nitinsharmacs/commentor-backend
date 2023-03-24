@@ -48,12 +48,12 @@ POST /add-comment
   "description": "Adds comment to given topic",
   "body": {
     "topicId": "topic-id",
-    "comment": {}
+    "comment": ""
   },
   "response": {
     "success": {
-      "topicId": "topic-id",
-      "commentId": "commentId",
+      "topic-id": "topic-id",
+      "comment-id": "comment-id",
       "total_comments": 232
     },
     "error": {

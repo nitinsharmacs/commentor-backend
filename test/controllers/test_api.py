@@ -32,6 +32,7 @@ def test_should_add_comment_to_topic(app):
     }
 
     response = app.post('/api/add-comment', json=body)
+    assert response.status_code == 201
     assert response.json == expected_response
 
 
