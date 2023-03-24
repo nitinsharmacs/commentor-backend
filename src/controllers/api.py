@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify, request
-from flask_cors import cross_origin
 
 from src.models.Comment import Comment
 from src.models.Comments import Comments

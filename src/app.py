@@ -15,8 +15,13 @@ def create_app():
     # Handling OPTIONS preflight requests
     @app.before_request
     def handle_options():
+        print(request.method)
         if request.method.lower() == 'options':
-            return Response()
+            response = Response()
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            response.headers.add(
+                'Access-Control-Allow-Headers', 'content-type')
+            return response
 
     app.register_blueprint(api_bp)
     return app
