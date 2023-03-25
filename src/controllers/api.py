@@ -15,7 +15,6 @@ def health():
 
 
 @api_bp.post('/add-comment', strict_slashes=False)
-# @cross_origin()
 def add_comment():
     """Add comment into given topic id"""
 
