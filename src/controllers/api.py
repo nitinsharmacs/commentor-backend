@@ -1,11 +1,11 @@
 from flask import Blueprint, jsonify, request
 
-from src.models.Comment import Comment
-from src.models.Comments import Comments
+from src.services.CommentsService import CommentsService
+from src.util.id_generator import id_generator
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
-comments = Comments()
+commentsService = CommentsService(id_generator)
 
 
 @api_bp.route('/health')
@@ -21,19 +21,19 @@ def add_comment():
     message = request.get_json()['comment']
     topic_id = request.get_json()['topic-id']
 
-    comment_id = '1'
-    comment = Comment(comment_id, message, 'anonymous', 'some_url')
-    total_comments = comments.add(comment, topic_id)
+    comment_info = commentsService.add_comment(topic_id, message)
 
     return jsonify({"topic-id": topic_id,
-                    "comment-id": comment_id,
-                    "total-comments": total_comments}), 201
+                    "comment-id": comment_info['comment-id'],
+                    "total-comments": comment_info['total-comments']}), 201
 
 
 @api_bp.get('/comments/<topic_id>')
 def get_comments(topic_id: str):
     """Gets all comments from the given topic id"""
 
-    topic_comments = comments.get_all(topic_id)
+    # topic_comments = comments.get_all(topic_id)
 
-    return jsonify({'topic-id': topic_id, 'comments': topic_comments})
+    comments = commentsService.get_all(topic_id)
+
+    return jsonify({'topic-id': topic_id, 'comments': comments})

@@ -15,7 +15,6 @@ def create_app():
     # Handling OPTIONS preflight requests
     @app.before_request
     def handle_options():
-        print(request.method)
         if request.method.lower() == 'options':
             response = Response()
             response.headers.add('Access-Control-Allow-Origin', '*')

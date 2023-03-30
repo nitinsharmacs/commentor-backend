@@ -1,14 +1,17 @@
-from datetime import datetime
 import pytest
 from src.app import create_app
-from src.controllers.api import comments
-from src.models.Map import Map
+from src.controllers.api import commentsService
+
+
+def id_generator_mock():
+    return '1'
 
 
 @pytest.fixture
 def app():
+    commentsService.__set_id_generator__(id_generator_mock)
     yield create_app().test_client()
-    comments.clear()
+    commentsService.clear()
 
 
 def test_health(app):
