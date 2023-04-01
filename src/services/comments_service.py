@@ -1,16 +1,19 @@
 """CommentsService"""
 
 from types import FunctionType
+
+from src.repositories.comments_repository import CommentsRepository
 from src.models.Comment import Comment
-from src.models.Comments import Comments
 
 
 class CommentsService:
     """Service managing comments"""
 
-    def __init__(self, id_generator: FunctionType):
+    def __init__(self,
+                 comments_repository: CommentsRepository,
+                 id_generator: FunctionType):
         """Initialise CommentsService"""
-        self.store = Comments()
+        self.comments_repository = comments_repository
         self.___id_generator___ = id_generator
 
     def __set_id_generator__(self, id_generator: FunctionType) -> None:
@@ -24,16 +27,18 @@ class CommentsService:
         username = 'anoymous'
         avatar = 'some_url'
 
-        total_insertions = self.store.add(Comment(comment_id, comment,
-                                                  username, avatar), topic_id)
+        total_insertions = self.comments_repository.add(
+            topic_id,
+            Comment(comment_id, comment, username, avatar)
+        )
 
         return {'total-comments': total_insertions, 'comment-id': comment_id}
 
     def get_all(self, topic_id: str) -> list:
         """Get all comments from provided topic"""
 
-        return self.store.get_all(topic_id)
+        return self.comments_repository.get(topic_id)
 
     def clear(self) -> None:
         """Delete all comments from all topics"""
-        self.store.clear()
+        self.comments_repository.clear()

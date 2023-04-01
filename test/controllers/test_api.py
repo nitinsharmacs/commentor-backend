@@ -1,6 +1,7 @@
+import json
 import pytest
 from src.app import create_app
-from src.controllers.api import commentsService
+from src.stores.memory_store import MemoryStore
 
 
 def id_generator_mock():
@@ -9,9 +10,8 @@ def id_generator_mock():
 
 @pytest.fixture
 def app():
-    commentsService.__set_id_generator__(id_generator_mock)
-    yield create_app().test_client()
-    commentsService.clear()
+    yield create_app({'store': MemoryStore()})\
+        .test_client()
 
 
 def test_health(app):
@@ -36,7 +36,9 @@ def test_should_add_comment_to_topic(app):
 
     response = app.post('/api/add-comment', json=body)
     assert response.status_code == 201
-    assert response.json == expected_response
+    assert response.json['topic-id'] == expected_response['topic-id']
+    assert response.json['total-comments'] ==\
+        expected_response['total-comments']
 
 
 @pytest.mark.only

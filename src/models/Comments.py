@@ -7,7 +7,7 @@ class Comments:
     """Stores and Manages all comments per topic"""
 
     def __init__(self):
-        self.comments = Map()
+        self.comments = Map({'comments': {}})
 
     def add(self, comment: Comment, topic_id: str) -> int:
         """Add comment into give topic id"""
