@@ -1,0 +1,8 @@
+#! /bin/bash
+
+make run-test args="-vv --capture=no"
+
+if [[ $? != 0 ]]; then
+  echo "Some of the tests are failing."
+  exit 1
+fi
