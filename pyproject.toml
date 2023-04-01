@@ -12,6 +12,7 @@ autopep8 = "^2.0.2"
 pymongo = "^4.3.3"
 flask = "^2.2.3"
 flask-restplus = "^0.13.0"
+requests = "^2.28.2"
 
 
 [tool.poetry.group.test.dependencies]

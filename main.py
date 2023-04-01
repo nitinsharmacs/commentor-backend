@@ -3,9 +3,11 @@ import pathlib
 
 from src.app import create_app
 from src.stores.file_store import FileStore
+from src.gchat_notificator import GChatNotificator
 
 STORE_DIR = './db'
 STORE_FILE = STORE_DIR + '/db.json'
+GCHAT_SPACE = 'https://chat.googleapis.com/v1/spaces/AAAAWbfnzv4/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=OjGR2nQi-rec-3tLP0MDvbnPC8eJkRuKeLap5QfGwvs%3D'
 
 
 def store_setup():
@@ -17,7 +19,8 @@ def store_setup():
 
 
 store_setup()
-app = create_app({'store': FileStore(STORE_FILE)})
+app = create_app({'store': FileStore(STORE_FILE),
+                 'notificator': GChatNotificator(GCHAT_SPACE)})
 
 PORT = 4000
 if __name__ == '__main__':

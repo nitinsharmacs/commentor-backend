@@ -8,9 +8,14 @@ def id_generator_mock():
     return '1'
 
 
+class MockNotificator:
+    def notify(self, topic, comment):
+        pass
+
+
 @pytest.fixture
 def app():
-    yield create_app({'store': MemoryStore()})\
+    yield create_app({'store': MemoryStore(), 'notificator': MockNotificator()})\
         .test_client()
 
 

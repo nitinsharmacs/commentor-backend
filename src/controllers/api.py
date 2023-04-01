@@ -28,6 +28,9 @@ def create_blueprint(config: dict):
 
         comment_info = comments_service.add_comment(topic_id, message)
 
+        if config.get('notificator', None):
+            config['notificator'].notify(topic_id, message)
+
         return jsonify({"topic-id": topic_id,
                         "comment-id": comment_info['comment-id'],
                         "total-comments": comment_info['total-comments']}), 201

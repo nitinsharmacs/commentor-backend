@@ -1,6 +1,7 @@
 """CommentsService"""
 
 from types import FunctionType
+from src.gchat_notificator import GChatNotificator
 
 from src.repositories.comments_repository import CommentsRepository
 from src.models.Comment import Comment
