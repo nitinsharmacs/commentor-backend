@@ -132,3 +132,7 @@ dmypy.json
 # IDE
 .vscode
 .vercel
+
+
+#custom
+db/

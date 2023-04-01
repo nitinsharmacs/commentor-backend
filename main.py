@@ -16,8 +16,9 @@ def store_setup():
         path.write_text(json.dumps({'comments': {}}), 'utf-8')
 
 
+store_setup()
 app = create_app({'store': FileStore(STORE_FILE)})
+
 PORT = 4000
 if __name__ == '__main__':
-    store_setup()
     app.run(port=PORT, host='0.0.0.0', debug=True)
