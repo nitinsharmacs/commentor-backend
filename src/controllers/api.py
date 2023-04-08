@@ -14,12 +14,12 @@ def create_blueprint(config: dict):
     comments_service = CommentsService(repository, id_generator)
 
     @api_bp.route('/health')
-    def health():
+    async def health():
         """Endpoint to check server health"""
         return jsonify({"message": "Server is healthy"})
 
     @api_bp.post('/add-comment', strict_slashes=False)
-    def add_comment():
+    async def add_comment():
         """Add comment into given topic id"""
 
         body = request.get_json()
@@ -29,14 +29,14 @@ def create_blueprint(config: dict):
         comment_info = comments_service.add_comment(topic_id, message)
 
         if config.get('notificator', None):
-            config['notificator'].notify(topic_id, message)
+            await config['notificator'].notify(topic_id, message)
 
         return jsonify({"topic-id": topic_id,
                         "comment-id": comment_info['comment-id'],
                         "total-comments": comment_info['total-comments']}), 201
 
     @api_bp.get('/comments/<topic_id>')
-    def get_comments(topic_id: str):
+    async def get_comments(topic_id: str):
         """Gets all comments from the given topic id"""
 
         comments = comments_service.get_all(topic_id)

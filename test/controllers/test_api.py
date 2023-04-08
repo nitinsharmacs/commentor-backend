@@ -9,7 +9,7 @@ def id_generator_mock():
 
 
 class MockNotificator:
-    def notify(self, topic, comment):
+    async def notify(self, topic, comment):
         pass
 
 
