@@ -1,9 +1,18 @@
-"""Store.py"""
+"""store.py"""
+
+from typing import TypeVar
+
+
+T = TypeVar('T')
 
 
 class Store:
-    """dsfds"""
+    """Interface for store classes"""
 
-    def get(self, key: str) -> list | dict:
-        """should get corresponding value of given key"""
+    def get(self, key: str) -> T:
+        """Gets value of given key"""
+        pass
+
+    def put(self, key: str, value: dict | list) -> bool:
+        """Sets value of given key"""
         pass

@@ -5,6 +5,8 @@ from pathlib import Path
 from typing import TypeVar
 from datetime import datetime, date
 
+from src.stores.store import Store
+
 T = TypeVar('T')
 
 
@@ -14,7 +16,7 @@ def default(obj):
         return obj.isoformat()
 
 
-class FileStore:
+class FileStore(Store):
     """FileStore to store """
 
     def __init__(self, store_file: str | Path) -> None:

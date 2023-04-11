@@ -1,12 +1,12 @@
 from typing import TypeVar
 
-from src.models.Array import Array
 from src.models.Map import Map
+from src.stores.store import Store
 
 T = TypeVar('T')
 
 
-class MemoryStore:
+class MemoryStore(Store):
     """Memory store to manage key and values list"""
 
     def __init__(self):
