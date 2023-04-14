@@ -21,27 +21,25 @@ class CommentsRepository:
         self.store = store
         self.__KEY__ = 'comments'
 
-    def add(self, topic_id: str, comment: Comment) -> int:
+    async def add(self, comment: Comment) -> int:
         """Add a comment into comments store"""
 
-        comments: dict = self.store.get(self.__KEY__)
+        # comments: dict = self.store.get(self.__KEY__)
 
-        topic_comments = comments.get(topic_id, [])
-        topic_comments.insert(0, comment)
-        comments[topic_id] = topic_comments
-        self.store.put(self.__KEY__, comments)
+        # topic_comments = comments.get(topic_id, [])
+        # topic_comments.insert(0, comment)
+        # comments[topic_id] = topic_comments
+        # self.store.put(self.__KEY__, comments)
+        total_comments = await self.store.insert(self.__KEY__, comment)
+        return total_comments
 
-        return len(comments[topic_id])
-
-    def get(self, topic_id: str) -> list[Comment]:
+    async def get(self, topic_id: str) -> list[Comment]:
         """Get all the comments under topic id"""
-
-        comments: dict = self.store.get(self.__KEY__)
-        topic_comments = comments.get(topic_id, [])
-
+        comments = await self.store.find(self.__KEY__, {'topic_id': topic_id})
         return [Comment(comment['id'],
                         comment['message'],
                         comment['username'],
                         comment['avatar'],
+                        comment['topic_id'],
                         to_datetime(comment['timestamp']))
-                for comment in topic_comments]
+                for comment in comments]

@@ -21,24 +21,23 @@ class CommentsService:
         """Should not be used by user"""
         self.___id_generator___: FunctionType = id_generator
 
-    def add_comment(self, topic_id: str, comment: str) -> dict:
+    async def add_comment(self, topic_id: str, comment: str) -> dict:
         """Add a comment into provided topic id"""
 
         comment_id = self.___id_generator___()
         username = 'anoymous'
         avatar = 'some_url'
 
-        total_insertions = self.comments_repository.add(
-            topic_id,
-            Comment(comment_id, comment, username, avatar)
+        total_insertions = await self.comments_repository.add(
+            Comment(comment_id, comment, username, avatar, topic_id)
         )
 
         return {'total-comments': total_insertions, 'comment-id': comment_id}
 
-    def get_all(self, topic_id: str) -> list:
+    async def get_all(self, topic_id: str) -> list:
         """Get all comments from provided topic"""
-
-        return self.comments_repository.get(topic_id)
+        return await self.comments_repository.get(topic_id)
+        # return self.comments_repository.get(topic_id)
 
     def clear(self) -> None:
         """Delete all comments from all topics"""

@@ -24,7 +24,6 @@ def test_health(app):
     assert response.json['message'] == "Server is healthy"
 
 
-@pytest.mark.only
 def test_should_add_comment_to_topic(app):
     "It should add comment to given topic id"
 
@@ -46,7 +45,6 @@ def test_should_add_comment_to_topic(app):
         expected_response['total-comments']
 
 
-@pytest.mark.only
 def test_should_response_comments_of_given_topic(app):
     "It should response comments of given topic"
 

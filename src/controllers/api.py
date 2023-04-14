@@ -26,7 +26,7 @@ def create_blueprint(config: dict):
         message = body['comment']
         topic_id = body['topic-id']
 
-        comment_info = comments_service.add_comment(topic_id, message)
+        comment_info = await comments_service.add_comment(topic_id, message)
 
         if config.get('notificator', None):
             await config['notificator'].notify(topic_id, message)
@@ -39,7 +39,7 @@ def create_blueprint(config: dict):
     async def get_comments(topic_id: str):
         """Gets all comments from the given topic id"""
 
-        comments = comments_service.get_all(topic_id)
+        comments = await comments_service.get_all(topic_id)
 
         return jsonify({'topic-id': topic_id, 'comments': comments})
 

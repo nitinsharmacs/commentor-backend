@@ -1,6 +1,7 @@
 "file_store.py"
 
 import json
+from src.models.Array import Array
 from pathlib import Path
 from typing import TypeVar
 from datetime import datetime, date
@@ -36,6 +37,29 @@ class FileStore(Store):
         """Writes the content to store file"""
         with open(self.store_file, mode='w', encoding='utf-8') as file:
             json.dump(content, file, default=default)
+
+    def __get_bucket(self, bucket_name: str) -> Array:
+        """Gets the bucket by the name"""
+        content = self.__get_content__()
+        return Array(content.get(bucket_name, []))
+
+    def __write_bucket(self, bucket_name: str, bucket: Array) -> None:
+        """Writes the given bucket"""
+        content = self.__get_content__()
+        content[bucket_name] = bucket
+        self.__write__(content)
+
+    async def insert(self, bucket_name: str, item: dict) -> int:
+        """Inserts the item in bucket of given name"""
+        bucket = self.__get_bucket(bucket_name)
+        bucket.append(item)
+        self.__write_bucket(bucket_name, bucket)
+        return len(bucket)
+
+    async def find(self, bucket_name: str, query: dict) -> list:
+        """Finds the matched items by the given query"""
+        bucket = self.__get_bucket(bucket_name)
+        return bucket.filter(lambda item: item['topic_id'] == query['topic_id'])
 
     def get(self, key: str) -> T:
         """Gets value of given key"""
