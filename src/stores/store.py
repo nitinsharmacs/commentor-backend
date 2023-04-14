@@ -12,7 +12,7 @@ class Store:
     async def insert(self, bucket_name: str, item: dict) -> int:
         """Inserts into collection"""
         pass
-
+        ""
     async def find(self, bucket_name: str, query: dict) -> list:
         """Finds all the matched items"""
         pass
