@@ -5,4 +5,4 @@ print:
 	echo $(args)
 
 start:
-	python3 main.py
+	python3 index.py

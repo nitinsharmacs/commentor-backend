@@ -1,0 +1,14 @@
+version: '3'
+name: 'commentor'
+
+services:
+  commentor-backend:
+    container_name: commentor-backend
+    build:
+      dockerfile: Dockerfile
+      context: .
+    env_file: .env
+    ports:
+      - 4000:4000
+    volumes:
+      - ./db:/app/db:rw
